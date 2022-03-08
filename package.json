@@ -1,0 +1,41 @@
+{
+    "name": "manzhie",
+    "version": "0.1.0",
+    "description": "c'est une application recupération de données sur les trajets de transport urbain",
+    "main": "serve.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/VictorNico/manzhie-server.git"
+    },
+    "keywords": [
+        "Journeys",
+        "MetaData",
+        "Knowledge",
+        "Knowledge Graph"
+    ],
+    "author": "BDKS",
+    "license": "Apache-2.0 Licence",
+    "bugs": {
+        "url": "https://github.com/VictorNico/manzhie-server/issues"
+    },
+    "homepage": "https://github.com/VictorNico/manzhie-server#readme",
+    "dependencies": {
+        "body-parser": "^1.19.2",
+        "connect-history-api-fallback": "^1.6.0",
+        "dotenv": "^16.0.0",
+        "express": "^4.17.3",
+        "fs": "^0.0.1-security",
+        "jsonwebtoken": "^8.5.1",
+        "jwt-decode": "^3.1.2",
+        "moment": "^2.29.1",
+        "mongoose": "^6.2.4",
+        "mongoose-unique-validator": "^3.0.0",
+        "neo4j-driver": "^4.4.3",
+        "nodemon": "^2.0.15",
+        "path": "^0.12.7",
+        "socket.io": "^4.4.1"
+    }
+}
