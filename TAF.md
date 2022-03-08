@@ -138,4 +138,5 @@ create (lun)-[:DEPART {name:'reveiller'}]->(cra)-[:DEPLACER {type:'marche',temps
 // retourner le graphe des trajets de la semaine
 //
 
+// test
 match (s:semaine),(l:lieu_dit),(j:jour) return s,l,j
