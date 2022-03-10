@@ -1,5 +1,6 @@
+// import graphDBConnect middleware
 const graphDBConnect = require('../../../../middlewares/v0.1.0/neo4j/graphDBConnect.js');
-
+// define formatResponse function
 function formatResponse(resultObj) {
     const result = [];
     if (resultObj.records.length > 0) {
@@ -12,7 +13,7 @@ function formatResponse(resultObj) {
     }
     return result;
 }
-
+// define and export async create function
 exports.create = async function(req, res) {
     /* console.log(req.body); */
     const {
@@ -50,14 +51,16 @@ exports.create = async function(req, res) {
     const result = formatResponse(resultObj);
     res.send(result); */
 };
+// define and export async getAll function
 exports.getAll = async function(req, res) {
-    const query = 'MATCH (n:place) RETURN n LIMIT 100';
+    const query = 'MATCH (n)<-[r]->(p) RETURN n,r,p LIMIT 100';
     const params = {};
     graphDBConnect.executeCypherQuery(query, params).then(resultObj => {
         /* console.log(resultObj); */
         res.send(formatResponse(resultObj));
     });
 };
+// define and export async get function
 exports.get = async function(req, res) {
     const { name } = req.body;
     const query = `MATCH (n:place {name: '${name}'})<-[r]->(p:place) RETURN n,r,p LIMIT 100`;
@@ -67,6 +70,7 @@ exports.get = async function(req, res) {
         res.send(formatResponse(resultObj));
     });
 };
+// define and export async update function
 exports.update = async function(req, res) {
     const { start, end, typeR } = req.params;
     const {
@@ -104,6 +108,7 @@ exports.update = async function(req, res) {
         res.send(formatResponse(resultObj));
     });
 };
+// define and export async delete function
 exports.delete = async function(req, res) {
     const { start, end, typeR } = req.params;
 

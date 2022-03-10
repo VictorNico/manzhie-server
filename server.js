@@ -1,14 +1,15 @@
+// protocole http and application setting importation
 const http = require('http');
 const app = require('./app/app');
 
-
+// check node environment
 var env = process.env.NODE_ENV || 'development';
 if ('development' == env) {
     // configure stuff here
     require('dotenv').config()
 }
 
-
+// define normalize port function  use parse port to good integer format
 const normalizePort = val => {
     const port = parseInt(val, 10);
 
@@ -21,9 +22,12 @@ const normalizePort = val => {
     return false;
 };
 
+// normalied port from node environment config 
 const port = normalizePort(process.env.PORT || '3000');
+// set application port 
 app.set('port', port);
 
+// definition of error handler method for server error
 const errorHandler = error => {
     if (error.syscall !== 'listen') {
         throw error;
@@ -44,9 +48,13 @@ const errorHandler = error => {
     }
 };
 
+// create http instance server based on express app previously import
 const server = http.createServer(app);
 
+// set trigger error handler method to server
 server.on('error', errorHandler);
+
+// define trigger listening address and port callback function 
 server.on('listening', () => {
     const address = server.address();
     const bind = typeof address === 'string' ? 'pipe ' + address : 'port ' + port;
@@ -54,106 +62,9 @@ server.on('listening', () => {
     console.log('Launch Here ! ' + 'http://localhost:' + port + '/');
 });
 
-
-/* const io = require('socket.io')(server, {
-    // includes local domain to avoid CORS error locally
-    // configure it accordingly for production
-    cors: {
-        origin: '*',
-        methods: ['GET', 'POST'],
-        credentials: true,
-        transports: ['websocket', 'polling'],
-    },
-    allowEIO3: true,
-}) */
-
-// console.log(io)
-
-/* io.on("connection", (socket) => {
-    console.log("socket.io: User connected: ", socket.id)
-
-    socket.on("disconnect", () => {
-        console.log("socket.io: User disconnected: ", socket.id)
-    })
-})
-io.on("connect_error", (err) => {
-    console.log(`connect_error due to ${err.message}`);
-}); */
-
+// import package express-list-endpoints of the server
 const all_routes = require('express-list-endpoints');
+// console print of express list endpoints as table
 console.table(all_routes(app));
-
-server.listen(port,
-    /* (baseUrl, routes) => {
-        var Table = require('cli-table');
-        var table = new Table({ head: ["", "Path"] });
-        console.log('\nAPI for ' + baseUrl);
-        console.log('\n********************************************');
-
-        for (var key in routes) {
-            if (routes.hasOwnProperty(key)) {
-                var val = routes[key];
-                if (val.route) {
-                    val = val.route;
-                    var _o = {};
-                    _o[val.stack[0].method] = [baseUrl + val.path];
-                    table.push(_o);
-                }
-            }
-        }
-
-        console.log(table.toString());
-        return table;
-
-    } */
-);
-
-const mongoose = require('mongoose');
-
-const ONLINE_DB = process.env.ONLINE_DB || '';
-const OFFLINE_DB = process.env.OFFLINE_DB || 'mongodb://localhost:27017/manzhie';
-
-const options = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-
-    //useCreateIndex: true,
-    //useFindAndModify: false,
-};
-
-// config middleware to filter url request permission
-// app.use(cors());
-// app.use(cors({
-//   origin: 'http://localhost:8080'
-// }))
-//setting up the connection
-mongoose.connect(OFFLINE_DB, options)
-    .then(() => console.log('Connection à MongoDB réussie !'))
-    .catch((error) => console.log('Connection à MongoDB échouée ! \n' + error));
-
-
-// const connection = mongoose.connection
-// connection.once("open", () => {
-//     console.log("MongoDB database connected")
-
-//     console.log("Setting change streams")
-//     const users = connection.collection("users").watch({ fullDocument: 'updateLookup' })
-
-//     users.on("change", (change) => {
-//         switch (change.operationType) {
-//             case "insert":
-//                 const Iuser = {...change.fullDocument }
-//                 console.log(change)
-//                 console.log(Iuser)
-//                 Iuser.role == 'client' ? io.emit("newClient", Iuser) : (Iuser.role == 'driver' ? io.emit("newDriver", Iuser) : (Iuser.role == 'hotess' ? io.emit("newHotess", Iuser) : io.emit("newSupervisor", Iuser)))
-//                 break
-//             case "update":
-//                 // const Uuser = {...change.documentKey, ...change.updateDescription }
-//                 const Uuser = {...change.fullDocument }
-//                 console.log(change)
-//                 console.log(Uuser)
-//                 Uuser.role == 'client' ? io.emit("updateClient", Uuser) : (Uuser.role == 'driver' ? io.emit("updateDriver", Uuser) : (Uuser.role == 'hotess' ? io.emit("updateHotess", Uuser) : io.emit("updateSupervisor", Uuser)))
-//                 break
-//         }
-//     })
-// })
+// launch server on normalized defined port 
+server.listen(port);
