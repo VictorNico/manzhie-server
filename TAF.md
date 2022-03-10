@@ -71,7 +71,9 @@ create (lun)-[:DEPART {name:'reveiller'}]->(cra)-[:DEPLACER {type:'marche',temps
 // retourner le graphe des trajets de la semaine
 //
 
-match (s:semaine),(l:lieu_dit),(j:jour) return s,l,j// Theme: Peuplement automatique d'un graphe à partir de données structurées.
+match (s:semaine),(l:lieu_dit),(j:jour) return s,l,j
+
+// Theme: Peuplement automatique d'un graphe à partir de données structurées.
 
 // exercices
 
@@ -140,3 +142,5 @@ create (lun)-[:DEPART {name:'reveiller'}]->(cra)-[:DEPLACER {type:'marche',temps
 
 // test
 match (s:semaine),(l:lieu_dit),(j:jour) return s,l,j
+// deletion script
+MATCH (n) DETACH DELETE n

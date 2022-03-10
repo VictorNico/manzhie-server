@@ -18,7 +18,7 @@ const bodyParser = require('body-parser');
 // app.set("view engine", "ejs")
 var history = require('connect-history-api-fallback');
 app.use(express.static("public"));
-app.use(express.json());
+//app.use(express.json());
 //instead of app.set('view engine', 'handlebars'); 
 /* app.set('view engine', 'hbs');
 const hbs = handlebars.create({
@@ -39,13 +39,6 @@ app.set('views', path.join(__dirname, '..', '/views/PAGES/layouts'));
 app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: false }))
 
-// middlewares importation
-const ind = require('./middlewares');
-
-// routes inportation
-const route = require('./routers/mongodb');
-
-
 //enables cors
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -63,8 +56,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(history());
 
 //use following routes in application
-app.use('/in', route);
-
+require('./startup/logging.js')();
+require('./startup/routes.js')(app);
+app.get('*', (req, res) => { res.send('hahahah') });
 /* console.table(app._router.stack // registered routes
     .filter(r => r.route) // take out all the middleware
     .map(r => r.route.path) // get all the paths
