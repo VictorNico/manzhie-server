@@ -140,15 +140,15 @@ application de recuperation de données sur les trajets de transport au cameroun
 **clone project**
 * _https link_ 
 ```{bash}
-git clone httpsUrl
+git clone https://github.com/VictorNico/manzhie-server.git
 ```
 * _ssh link_ 
 ```{bash}
-git clone httpsUrl
+git clone git@github.com:VictorNico/manzhie-server.git
 ```
 * _github command_
 ```{bash}
-gb rp repUrl
+gh repo clone VictorNico/manzhie-server
 ```
 **change directory to clone directory**
 ```{bash}
